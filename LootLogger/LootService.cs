@@ -2,28 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using LootLogger.Model;
+using SUNLootLogger.Model;
 using Newtonsoft.Json;
 using System.IO;
-using System.Net.Http;
 using System.Diagnostics;
 using Discord.Webhook;
 using Discord;
 
-namespace LootLogger
+namespace SUNLootLogger
 {
     public class LootService : ILootService
     {
         private List<Player> players;
-        private readonly HttpClient client;
 
         private DateTime lastUploadDate = DateTime.MinValue;
 
         public LootService()
         {
             players = new List<Player>();
-            client = new HttpClient();
         }
 
         public void AddLootForPlayer(Loot loot, string playerName)

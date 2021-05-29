@@ -2,14 +2,10 @@
 using PcapDotNet.Packets;
 using PcapDotNet.Packets.Transport;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace LootLogger
+namespace SUNLootLogger
 {
     internal class PhotonPacketHandler
     {

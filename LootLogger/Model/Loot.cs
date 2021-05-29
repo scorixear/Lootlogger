@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LootLogger.Model
+namespace SUNLootLogger.Model
 {
     public class Loot
     {

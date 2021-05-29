@@ -1,15 +1,12 @@
-﻿using ExitGames.Client.Photon;
-using PcapDotNet.Core;
+﻿using PcapDotNet.Core;
 using PcapDotNet.Packets;
-using PcapDotNet.Packets.Transport;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Threading;
 
-namespace LootLogger
+namespace SUNLootLogger
 {
 
     public class Program
