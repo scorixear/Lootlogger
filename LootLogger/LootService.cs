@@ -15,8 +15,6 @@ namespace LootLogger
 {
     public class LootService : ILootService
     {
-        private const string url = "https://discord.com/api/webhooks/827877961754738698/irGvCn4H0KGV-t_pJ5jlyvTfO0tsutL3a6WswtcPSysuinJObqJyqzFGkHVUMCraeohA";
-
         private List<Player> players;
         private readonly HttpClient client;
 
@@ -61,7 +59,7 @@ namespace LootLogger
                     return;
                 }
 
-                string content = JsonConvert.SerializeObject(this.players, Formatting.Indented);
+                string content = JsonConvert.SerializeObject(players, Formatting.Indented);
                 DateTime now = DateTime.UtcNow;
                 string date = now.ToString("dd-MMM-HH-mm-ss");
                 string subname = $"CombatLoots-{date}.json";
@@ -78,42 +76,23 @@ namespace LootLogger
                     return;
                 }
 
-                var DCW = new DiscordWebhookClient(url);
+                var DCW = new DiscordWebhookClient(Config.instance.DiscordWebHook);
                 using(var client = DCW)
                 {
                     var eb = new EmbedBuilder();
                     eb.WithTitle("New LootLog ready!");
                     eb.WithDescription("Loot log has been created.");
                     eb.AddField("LootLog Date", now.ToString("dd/MMM HH:mm"));
-                    eb.WithFooter("Created by Scorix");
+                    eb.WithFooter($"Created by {Config.instance.Reporter}");
                     eb.WithColor(Color.Green);
                     Embed[] embedArray = new Embed[] { eb.Build() };
                     await DCW.SendFileAsync(embeds: embedArray, text:"", filePath: fileName);
                     Console.WriteLine("Successfully uploaded logs");
                 }
-
-                //MultipartFormDataContent form = new MultipartFormDataContent();
-                //var file_bytes = File.ReadAllBytes(fileName);
-                //form.Add(new ByteArrayContent(file_bytes, 0, file_bytes.Length), "Document", subname);
-                
-
-                //var response = await client.PostAsync(url, form);
-
-                //if (response.IsSuccessStatusCode)
-                //{
-                //    Console.WriteLine("Successfully uploaded logs");
-                //    this.lastUploadDate = DateTime.UtcNow;
-                //    string url = await response.Content.ReadAsStringAsync();
-                //    Process.Start(url);
-                //}
-                //else
-                //{
-                //    Console.WriteLine("Failed to upload logs");
-                //}
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.Write(e.StackTrace);
+                Debug.Write(e.StackTrace);
             }
         }
     }

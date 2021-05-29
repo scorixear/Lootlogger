@@ -16,6 +16,7 @@ namespace LootLogger
     {
         static void Main(string[] args)
         {
+            Config config = Config.instance;
             ConsoleKeyInfo cki;
             LootLogger logger = null;
             try

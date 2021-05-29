@@ -14,8 +14,8 @@ namespace LootLogger
     {
         private ILootService lootService;
         private HttpClient client;
-        private const string itemsMappingUrl = "https://kellerus.de/lootlogger/items.json";
-        private const string eventsMappingUrl = "https://kellerus.de/lootlogger/events.json";
+        //private const string itemsMappingUrl = "https://kellerus.de/lootlogger/items.json";
+        //private const string eventsMappingUrl = "https://kellerus.de/lootlogger/events.json";
         private bool isInitialized = false;
         private Dictionary<int, string> itemDictionary = new Dictionary<int, string>();
         private Dictionary<string, int> eventDictionary = new Dictionary<string, int>();
@@ -114,7 +114,7 @@ namespace LootLogger
             {
                 if (itemDictionary.Count == 0)
                 {
-                    var response = await this.client.GetAsync(new Uri(itemsMappingUrl));
+                    var response = await this.client.GetAsync(new Uri(Config.instance.ItemsUrl));
                     var content = await response.Content.ReadAsStringAsync();
                     List<Item> itemList = JsonConvert.DeserializeObject<List<Item>>(content);
                 
@@ -127,7 +127,7 @@ namespace LootLogger
 
                 if(eventDictionary.Count == 0)
                 {
-                    var response = await this.client.GetAsync(new Uri(eventsMappingUrl));
+                    var response = await this.client.GetAsync(new Uri(Config.instance.EventsUrl));
                     var content = await response.Content.ReadAsStringAsync();
                     List<Event> eventList = JsonConvert.DeserializeObject<List<Event>>(content);
                     eventList.ForEach(entry => eventDictionary.Add(entry.Name, entry.Code));
