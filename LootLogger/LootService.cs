@@ -44,7 +44,7 @@ namespace LootLogger
         public void SaveLootsToFile()
         {
             string content = JsonConvert.SerializeObject(this.players, Formatting.Indented);
-            using (var fs = File.Create(Path.Combine(Directory.GetCurrentDirectory(), $"CombatLoots-{DateTime.Now.ToString("dd-MMM-HH-mm-ss")}.json")))
+            using (var fs = File.Create(Path.Combine(Directory.GetCurrentDirectory(), $"CombatLoots-{DateTime.UtcNow.ToString("dd-MMM-HH-mm-ss")}.json")))
             {
                 Byte[] bytes = new UTF8Encoding(true).GetBytes(content);
                 fs.Write(bytes, 0, bytes.Length);
@@ -62,7 +62,7 @@ namespace LootLogger
                 }
 
                 string content = JsonConvert.SerializeObject(this.players, Formatting.Indented);
-                DateTime now = DateTime.Now;
+                DateTime now = DateTime.UtcNow;
                 string date = now.ToString("dd-MMM-HH-mm-ss");
                 string subname = $"CombatLoots-{date}.json";
                 string fileName = Path.Combine(Directory.GetCurrentDirectory(), subname);
