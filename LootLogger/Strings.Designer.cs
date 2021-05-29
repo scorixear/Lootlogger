@@ -63,11 +63,12 @@ namespace LootLogger {
         /// <summary>
         ///   Looks up a localized string similar to 
         ///===================================================================================================
-        ///Press U to Upload all loots and open the website made by @Reivaak 
+        ///Press U to Upload all loots
         ///Press S to save all loots grouped by players as a Json file in current folder
-        ///This Software was made by @Wipa and heavily inspired from @Tenebria&apos;s  HCE Damage number Meter 
+        ///This Software was made by @Scorix and heavily inspired from @Wipa
         ///===================================================================================================
-        ///===================================== Frogue One #1 ============ [rest of string was truncated]&quot;;.
+        ///====================================== SUN #1 ========================================================
+        ///============================= [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string WelcomeMessage {
             get {
