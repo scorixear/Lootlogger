@@ -12,7 +12,7 @@ namespace LootLogger.Model
         [JsonIgnore]
         public int Id { get; set; }
 
-        [JsonIgnore]
+        [JsonProperty]
         public DateTime PickupTime { get; set; }
 
         [JsonIgnore]

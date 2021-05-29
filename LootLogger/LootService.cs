@@ -8,6 +8,8 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Net.Http;
 using System.Diagnostics;
+using Discord.Webhook;
+using Discord;
 
 namespace LootLogger
 {
@@ -60,7 +62,9 @@ namespace LootLogger
                 }
 
                 string content = JsonConvert.SerializeObject(this.players, Formatting.Indented);
-                string subname = $"CombatLoots-{DateTime.Now.ToString("dd-MMM-HH-mm-ss")}.json";
+                DateTime now = DateTime.Now;
+                string date = now.ToString("dd-MMM-HH-mm-ss");
+                string subname = $"CombatLoots-{date}.json";
                 string fileName = Path.Combine(Directory.GetCurrentDirectory(), subname);
                 using (var fs = File.Create(fileName))
                 {
@@ -68,30 +72,44 @@ namespace LootLogger
                     fs.Write(bytes, 0, bytes.Length);
                 }
 
-                if (content.Length < 1)
+                if (content.Length <= 2)
                 {
                     Console.WriteLine("Nothing to post");
                     return;
                 }
 
-                MultipartFormDataContent form = new MultipartFormDataContent();
-                var file_bytes = File.ReadAllBytes(fileName);
-                form.Add(new ByteArrayContent(file_bytes, 0, file_bytes.Length), "Document", subname);
+                var DCW = new DiscordWebhookClient(url);
+                using(var client = DCW)
+                {
+                    var eb = new EmbedBuilder();
+                    eb.WithTitle("New LootLog ready!");
+                    eb.WithDescription("Loot log has been created.");
+                    eb.AddField("LootLog Date", now.ToString("dd/MMM HH:mm"));
+                    eb.WithFooter("Created by Scorix");
+                    eb.WithColor(Color.Green);
+                    Embed[] embedArray = new Embed[] { eb.Build() };
+                    await DCW.SendFileAsync(embeds: embedArray, text:"", filePath: fileName);
+                    Console.WriteLine("Successfully uploaded logs");
+                }
+
+                //MultipartFormDataContent form = new MultipartFormDataContent();
+                //var file_bytes = File.ReadAllBytes(fileName);
+                //form.Add(new ByteArrayContent(file_bytes, 0, file_bytes.Length), "Document", subname);
                 
 
-                var response = await client.PostAsync(url, form);
+                //var response = await client.PostAsync(url, form);
 
-                if (response.IsSuccessStatusCode)
-                {
-                    Console.WriteLine("Successfully uploaded logs");
-                    this.lastUploadDate = DateTime.UtcNow;
-                    string url = await response.Content.ReadAsStringAsync();
-                    Process.Start(url);
-                }
-                else
-                {
-                    Console.WriteLine("Failed to upload logs");
-                }
+                //if (response.IsSuccessStatusCode)
+                //{
+                //    Console.WriteLine("Successfully uploaded logs");
+                //    this.lastUploadDate = DateTime.UtcNow;
+                //    string url = await response.Content.ReadAsStringAsync();
+                //    Process.Start(url);
+                //}
+                //else
+                //{
+                //    Console.WriteLine("Failed to upload logs");
+                //}
             }
             catch (Exception e)
             {
