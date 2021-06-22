@@ -15,7 +15,7 @@ namespace SUNLootLogger.Model
         [JsonProperty]
         public DateTime PickupTime { get; set; }
 
-        [JsonIgnore]
+        [JsonProperty]
         public string BodyName { get; set; }
 
         [JsonProperty]
