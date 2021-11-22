@@ -32,7 +32,7 @@ namespace SUNLootLogger
         private Config() { }
         public string Reporter { get; set; } = "Scorix";
         public string ItemsUrl { get; set; } = "https://raw.githubusercontent.com/broderickhyman/ao-bin-dumps/master/formatted/items.json";
-        public string EventsUrl { get; set; } = "http://guildofsun.com/json/events.json";
-        public string DiscordWebHook { get; set; } = "https://discord.com/api/webhooks/827877961754738698/irGvCn4H0KGV-t_pJ5jlyvTfO0tsutL3a6WswtcPSysuinJObqJyqzFGkHVUMCraeohA";
+        public string EventsUrl { get; set; } = "https://mail.kellerus.de/lootlogger/events.json";
+        public string DiscordWebHook { get; set; } = "";
     }
 }
