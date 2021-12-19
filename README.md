@@ -1,6 +1,9 @@
 # SUN LootLogger
-Decompile of AOLootLogger.
-Made for Guild: SUN.
+Decompile of AOLootLogger
+
+NPCap Version
+https://nmap.org/npcap/dist/npcap-0.9986.exe
+
 
 Download newest Release Build.
 Start Programm.

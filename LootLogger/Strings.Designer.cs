@@ -67,8 +67,8 @@ namespace SUNLootLogger {
         ///Press S to save all loots grouped by players as a Json file in current folder
         ///This Software was made by @Scorix and heavily inspired from @Wipa
         ///===================================================================================================
-        ///====================================== SUN #1 ========================================================
-        ///============================= [rest of string was truncated]&quot;;.
+        ///===================================================================================================
+        ///================================ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string WelcomeMessage {
             get {

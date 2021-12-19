@@ -48,14 +48,39 @@ namespace SUNLootLogger
                 return;
             }
             //Console.WriteLine(iCode + " - " + ((EventCodes)iCode).ToString());
+            
             if (eventDictionary.ContainsKey("evOtherGrabbedLoot") && iCode == eventDictionary["evOtherGrabbedLoot"])
             {
-                this.OnLootPicked(parameters);
+                this.OnLootPicked(iCode, parameters);
+            }
+            else
+            {
+                this.DetectLootPacket(iCode, parameters);
             }
 
         }
 
-        private void OnLootPicked(Dictionary<byte, object> parameters)
+        private void DetectLootPacket(int iCode, Dictionary<byte, object> parameters)
+        {
+            try
+            {
+                string looter = parameters[2].ToString();
+                int quantity = int.Parse(parameters[5].ToString());
+                int itemId = int.Parse(parameters[4].ToString());
+                string itemName = itemDictionary[itemId];
+                string deadPlayer = parameters[1].ToString();
+
+                eventDictionary.Add("evOtherGrabbedLoot", iCode);
+                var now = DateTime.Now;
+                Console.WriteLine($"[{now:HH:mm:ss}] Detected Loot Event ID : {iCode}");
+                OnLootPicked(iCode, parameters);
+            } catch
+            {
+
+            }
+        }
+
+        private void OnLootPicked(int iCode, Dictionary<byte, object> parameters)
         {
             try
             {
@@ -80,7 +105,7 @@ namespace SUNLootLogger
                     lootService.AddLootForPlayer(loot, looter);
                     string path = Path.Combine(Directory.GetCurrentDirectory(), "logs.txt");
                     var now = DateTime.Now;
-                    string line = $"[{now.ToString("HH:mm:ss")}] {looter} has looted {quantity}x {itemName} on {deadPlayer}";
+                    string line = $"[{now:HH:mm:ss}] {looter} has looted {quantity}x {itemName} on {deadPlayer}";
                     Console.WriteLine(line);
                     using (StreamWriter sw = File.AppendText(path))
                     {
@@ -90,6 +115,7 @@ namespace SUNLootLogger
             }
             catch (Exception)
             {
+                eventDictionary.Remove("evOtherGrabbedLoot");
             }
         }
 

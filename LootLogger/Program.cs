@@ -13,7 +13,7 @@ namespace SUNLootLogger
     {
         static void Main(string[] args)
         {
-            Config config = Config.instance;
+            Config _ = Config.instance;
             ConsoleKeyInfo cki;
             LootLogger logger = null;
             try
