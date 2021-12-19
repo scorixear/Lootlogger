@@ -1,4 +1,4 @@
-# SUN LootLogger
+# LootLogger
 Decompile of AOLootLogger
 
 NPCap Version
